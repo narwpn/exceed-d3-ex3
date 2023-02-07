@@ -1,5 +1,5 @@
 #include <Arduino.h>
-//#include "calculator.h"
+#include "calculator.h"
 #include <Bounce2.h>
 
 #define BUTTON 27
@@ -46,8 +46,8 @@ void setup() {
     ledcAttachPin(BLUE, 0);
 
     xTaskCreatePinnedToCore(Button_LED, "Button_LED", 10000, NULL, 1, NULL, 0);
-    xTaskCreatePinnedToCore(Dim_LED, "Dim_LED", 10000, NULL, 1, NULL, 1);
-    //xTaskCreatePinnedToCore(GET_question, "GET_question", 10000, NULL, 1, NULL, 1);
+    xTaskCreatePinnedToCore(Dim_LED, "Dim_LED", 10000, NULL, 1, NULL, 0);
+    xTaskCreatePinnedToCore(calculator, "calculator", 10*1024, NULL, 1, NULL, 1);
 }
 
 void loop() {
