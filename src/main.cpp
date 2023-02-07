@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "calculator.h"
 #include <Bounce2.h>
+#include "calculator.h"
 
 #define BUTTON 27
 #define BLUE 5
@@ -32,12 +32,23 @@ void Dim_LED (void *param) {
     }
 }
 
+void Connect_Wifi() {
+    WiFi.begin("Pun-iPhone", "spiderman");
+    Serial.print("Connecting to WiFi");
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.print("OK! IP=");
+    Serial.println(WiFi.localIP());
+}
+
 void setup() {
     Serial.begin(115200);
     Serial.println("BUTTON");
     debouncer.attach(BUTTON, INPUT_PULLUP);
     debouncer.interval(25); 
-    //Connect_Wifi();
+    Connect_Wifi();
     
     pinMode(RED, OUTPUT);
     digitalWrite(RED, LOW);
